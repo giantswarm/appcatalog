@@ -1,0 +1,32 @@
+appOperator:
+  version: "1.0.0"
+
+appCatalog:
+  name: ""
+  title: ""
+  description: ""
+  logoUrl: "http://giantswarm.com/catalog-logo.png"
+  storage:
+    url: "https://giantswarm.github.com/sample-catalog/"
+  config:
+    configMap:
+      name: ""
+      namespace: "default"
+    secret:
+      name: ""
+      namespace: "default"
+
+configMap:
+  values:
+    Installation:
+      V1:
+        API:
+          Address: ""
+
+secret:
+  values:
+    Installation:
+      V1:
+        Secret:
+          API:
+            token: ""
