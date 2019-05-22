@@ -1,4 +1,4 @@
-{{ if and .Values.appCatalog.config .Values.appCatalog.config.configMap }}
+{{ if .Values.appCatalog.config }}{{ if .Values.appCatalog.config.configMap }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,4 +7,4 @@ metadata:
 data:
   values: |
     {{ .Values.configMap.values }}
-{{ end }}
+{{ end }}{{ end }}
