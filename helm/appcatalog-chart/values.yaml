@@ -18,10 +18,8 @@ appCatalog:
 
 configMap:
   values:
-    Installation:
-      V1:
-        API:
-          Address: ""
+    image:
+      registry: "quay.io"
 
 secret:
   values:
