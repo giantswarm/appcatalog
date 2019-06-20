@@ -12,21 +12,17 @@ appCatalog:
     configMap:
       name: ""
       namespace: "default"
-    secret:
-      name: ""
-      namespace: "default"
+### Example Secret metadata ###
+#    secret:
+#      name: ""
+#      namespace: "default"
 
 configMap:
   values:
-    Installation:
-      V1:
-        API:
-          Address: ""
+    image:
+      registry: "quay.io"
 
-secret:
-  values:
-    Installation:
-      V1:
-        Secret:
-          API:
-            token: ""
+### Example Secret configuration structure ###
+#secret:
+#  values:
+#    token: ""
