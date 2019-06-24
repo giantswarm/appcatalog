@@ -6,5 +6,5 @@ metadata:
   namespace: "{{ .Values.appCatalog.config.configMap.namespace }}"
 data:
   values: |
-    {{ .Values.configMap.values }}
-{{ end }}{{ end }}
+{{- toYaml .Values.configMap.values | trim | nindent 4 }}
+{{- end }}{{ end -}}
