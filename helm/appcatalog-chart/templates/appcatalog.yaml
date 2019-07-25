@@ -3,7 +3,7 @@ kind: AppCatalog
 metadata:
   name: "{{ .Values.appCatalog.name }}"
   labels:
-    application.giantswarm.io/catalog-type: "{{ .Values.appCatalog.labels.catalogType }}"
+    application.giantswarm.io/catalog-type: "{{ .Values.appCatalog.catalogType }}"
     app-operator.giantswarm.io/version: "{{ .Values.appOperator.version }}"
 spec:
   title: "{{ .Values.appCatalog.title }}"
