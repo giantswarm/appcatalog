@@ -19,8 +19,6 @@ appCatalog:
 
 configMap:
   values:
-    image:
-      registry: "quay.io"
 
 ### Example Secret configuration structure ###
 #secret:
