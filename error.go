@@ -6,11 +6,6 @@ var executionFailedError = &microerror.Error{
 	Kind: "executionFailed",
 }
 
-// IsExecutionFailed asserts executionFailedError.
-func IsExecutionFailed(err error) bool {
-	return microerror.Cause(err) == executionFailedError
-}
-
 var notFoundError = &microerror.Error{
 	Kind: "notFoundError",
 }
