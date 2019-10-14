@@ -5,28 +5,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 
 	"github.com/ghodss/yaml"
 	"github.com/giantswarm/microerror"
 )
-
-type index struct {
-	APIVersion string             `yaml:"apiVersion"`
-	Entries    map[string][]entry `yaml:"entries"`
-	Generated  time.Time          `yaml:"generated"`
-}
-
-type entry struct {
-	APIVersion  string    `yaml:"apiVersion"`
-	AppVersion  string    `yaml:"appVersion"`
-	Created     time.Time `yaml:"created"`
-	Description string    `yaml:"description"`
-	Digest      string    `yaml:"digest"`
-	Name        string    `yaml:"name"`
-	Urls        []string  `yaml:"urls"`
-	Version     string    `yaml:"version"`
-}
 
 // GetLatestChart returns the latest chart tarball file in the specified catalog.
 func GetLatestChart(ctx context.Context, catalog, app string) (string, error) {
