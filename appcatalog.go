@@ -30,7 +30,7 @@ func GetLatestChart(ctx context.Context, storageURL, app string) (string, error)
 	return downloadURL, nil
 }
 
-// GetLatestVersion returns the latest app version in the AppCatalog storage URL
+// GetLatestVersion returns the latest app version for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
 func GetLatestVersion(ctx context.Context, storageURL, app string) (string, error) {
 	index, err := getIndex(storageURL)
