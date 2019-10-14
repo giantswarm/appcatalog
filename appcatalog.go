@@ -10,7 +10,7 @@ import (
 	"github.com/giantswarm/microerror"
 )
 
-// GetLatestChart returns the latest chart tarball file in the AppCatalog storage URL
+// GetLatestChart returns the latest chart tarball file for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
 func GetLatestChart(ctx context.Context, storageURL, app string) (string, error) {
 	index, err := getIndex(storageURL)
