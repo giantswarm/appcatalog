@@ -3,7 +3,7 @@ package appcatalog
 import "github.com/giantswarm/microerror"
 
 var invalidTarballError = &microerror.Error{
-	Kind: "executionFailed",
+	Kind: "invalidTarballError",
 }
 
 // IsInvalidTarballError asserts invalidTarballError.
