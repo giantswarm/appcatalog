@@ -40,7 +40,7 @@ func GetLatestVersion(ctx context.Context, catalog, app string) (string, error) 
 	{
 		entry, ok := index.Entries[app]
 		if !ok {
-			return "", microerror.Maskf(notFoundError, fmt.Sprintf("no app %#q in index.yaml", app))
+			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 		}
 		version = entry[0].Version
 	}
