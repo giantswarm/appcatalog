@@ -21,7 +21,7 @@ func GetLatestChart(ctx context.Context, storage, app string) (string, error) {
 	{
 		entry, ok := index.Entries[app]
 		if !ok {
-			return "", microerror.Maskf(notFoundError, fmt.Sprintf("no app %q in index.yaml", app))
+			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 		}
 		downloadURL = entry[0].Urls[0]
 	}
