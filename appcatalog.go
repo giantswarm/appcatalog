@@ -10,9 +10,10 @@ import (
 	"github.com/giantswarm/microerror"
 )
 
-// GetLatestChart returns the latest chart tarball file in the specified catalog.
-func GetLatestChart(ctx context.Context, storage, app string) (string, error) {
-	index, err := getIndex(storage)
+// GetLatestChart returns the latest chart tarball file in the AppCatalog storage URL
+// and returns notFoundError when it can't find a specified app.
+func GetLatestChart(ctx context.Context, storageURL, app string) (string, error) {
+	index, err := getIndex(storageURL)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
@@ -29,9 +30,10 @@ func GetLatestChart(ctx context.Context, storage, app string) (string, error) {
 	return downloadURL, nil
 }
 
-// GetLatestVersion returns the latest version in the specified catalog.
-func GetLatestVersion(ctx context.Context, catalog, app string) (string, error) {
-	index, err := getIndex(catalog)
+// GetLatestVersion returns the latest app version in the AppCatalog storage URL
+// and returns notFoundError when it can't find a specified app.
+func GetLatestVersion(ctx context.Context, storageURL, app string) (string, error) {
+	index, err := getIndex(storageURL)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
@@ -48,8 +50,8 @@ func GetLatestVersion(ctx context.Context, catalog, app string) (string, error) 
 	return version, nil
 }
 
-func getIndex(storage string) (index, error) {
-	indexURL := fmt.Sprintf("%s/index.yaml", storage)
+func getIndex(storageURL string) (index, error) {
+	indexURL := fmt.Sprintf("%s/index.yaml", storageURL)
 	resp, err := http.Get(indexURL)
 	if err != nil {
 		return index{}, microerror.Mask(err)
