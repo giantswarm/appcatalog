@@ -52,7 +52,7 @@ func GetLatestVersion(ctx context.Context, storageURL, app string) (string, erro
 	return version, nil
 }
 
-// NewTarballURL returns the tarball URL of specified chart combining with app name, version.
+// NewTarballURL returns the chart tarball URL for the specified app and version.
 func NewTarballURL(baseURL string, appName string, version string) (string, error) {
 	if baseURL == "" || appName == "" || version == "" {
 		return "", microerror.Maskf(executionFailedError, "baseURL %#q, appName %#q, release %#q should not be empty", baseURL, appName, version)
