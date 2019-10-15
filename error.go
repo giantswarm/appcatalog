@@ -2,13 +2,8 @@ package appcatalog
 
 import "github.com/giantswarm/microerror"
 
-var invalidTarballError = &microerror.Error{
-	Kind: "invalidTarballError",
-}
-
-// IsInvalidTarballError asserts invalidTarballError.
-func IsInvalidTarballError(err error) bool {
-	return microerror.Cause(err) == invalidTarballError
+var executionFailedError = &microerror.Error{
+	Kind: "executionFailedError",
 }
 
 var notFoundError = &microerror.Error{
