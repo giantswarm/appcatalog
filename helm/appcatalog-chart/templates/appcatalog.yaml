@@ -8,10 +8,10 @@ metadata:
 spec:
   title: "{{ .Values.appCatalog.title }}"
   description: "{{ .Values.appCatalog.description }}"
-  logoURL: "{{ .Values.appCatalog.logoUrl }}"
+  logoURL: "{{ .Values.appCatalog.logoURL }}"
   storage:
     type: "helm"
-    URL: "{{ .Values.appCatalog.storage.url }}"
+    URL: "{{ .Values.appCatalog.storage.URL }}"
   {{- if .Values.appCatalog.config }}
   config:
     {{- if .Values.appCatalog.config.configMap }}
