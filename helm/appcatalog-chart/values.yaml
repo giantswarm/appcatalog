@@ -13,8 +13,7 @@ appCatalog:
       name: ""
       namespace: "default"
       values:
-### Example Secret metadata ###
-#    secret:
-#      name: ""
-#      namespace: "default"
-#      values:
+    secret:
+      name: ""
+      namespace: "default"
+      values:
