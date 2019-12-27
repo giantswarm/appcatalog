@@ -12,15 +12,8 @@ appCatalog:
     configMap:
       name: ""
       namespace: "default"
-### Example Secret metadata ###
-#    secret:
-#      name: ""
-#      namespace: "default"
-
-configMap:
-  values:
-
-### Example Secret configuration structure ###
-#secret:
-#  values:
-#    token: ""
+      values:
+    secret:
+      name: ""
+      namespace: "default"
+      values:
