@@ -21,6 +21,5 @@ configMap:
   values:
 
 ### Example Secret configuration structure ###
-#secret:
-#  values:
-#    token: ""
+secret:
+  values:
