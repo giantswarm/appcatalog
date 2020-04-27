@@ -12,8 +12,8 @@ import (
 	"github.com/giantswarm/microerror"
 )
 
-// GetLatestChart returns the latest chart tarball file for the specified storage URL and app
-// and matching given upon appVersion. It returns notFoundError when it can't find a specified app with appVersion.
+// GetLatestChart returns the latest chart tarball file for the specified storage URL and appVersion.
+// It returns notFoundError when it can't find a specified app with appVersion.
 func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
 	index, err := getIndex(storageURL)
 	if err != nil {
@@ -37,24 +37,29 @@ func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (st
 	return entries[0].Urls[0], nil
 }
 
-// GetLatestVersion returns the latest app version for the specified storage URL and app
-// and returns notFoundError when it can't find a specified app.
-func GetLatestVersion(ctx context.Context, storageURL, app string) (string, error) {
+// GetLatestVersion returns the latest app version for the specified storage URL and appVersion.
+// and returns notFoundError when it can't find a specified app with appVersion..
+func GetLatestVersion(ctx context.Context, storageURL, app, appVersion string) (string, error) {
 	index, err := getIndex(storageURL)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
 
-	var version string
-	{
-		entry, ok := index.Entries[app]
-		if !ok {
-			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
-		}
-		version = entry[0].Version
+	entries, ok := index.Entries[app]
+	if !ok {
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 	}
 
-	return version, nil
+	if appVersion != "" {
+		for _, entry := range entries {
+			if entry.Version == appVersion {
+				return entry.Version, nil
+			}
+		}
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
+	}
+
+	return entries[0].Version, nil
 }
 
 // NewTarballURL returns the chart tarball URL for the specified app and version.
