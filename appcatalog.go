@@ -20,21 +20,21 @@ func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (st
 		return "", microerror.Mask(err)
 	}
 
-		entries, ok := index.Entries[app]
-		if !ok {
-			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
-		}
+	entries, ok := index.Entries[app]
+	if !ok {
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
+	}
 
-		if appVersion != "" {
-			for _, entry := range entries {
-				if entry.Version == appVersion {
-					return entry.Urls[0], nil
-				}
+	if appVersion != "" {
+		for _, entry := range entries {
+			if entry.Version == appVersion {
+				return entry.Urls[0], nil
 			}
-			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
 		}
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
+	}
 
-		return entries[0].Urls[0], nil
+	return entries[0].Urls[0], nil
 }
 
 // GetLatestVersion returns the latest app version for the specified storage URL and app
