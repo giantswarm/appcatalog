@@ -14,22 +14,28 @@ import (
 
 // GetLatestChart returns the latest chart tarball file for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
-func GetLatestChart(ctx context.Context, storageURL, app string) (string, error) {
+func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
 	index, err := getIndex(storageURL)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
 
-	var downloadURL string
-	{
-		entry, ok := index.Entries[app]
-		if !ok {
-			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
-		}
-		downloadURL = entry[0].Urls[0]
+	entries, ok := index.Entries[app]
+	if !ok {
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 	}
 
-	return downloadURL, nil
+	if appVersion == "" {
+		return entries[0].Urls[0], nil
+	}
+
+	for _, entry := range entries {
+		if entry.AppVersion == appVersion {
+			return entry.Urls[0], nil
+		}
+	}
+
+	return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
 }
 
 // GetLatestVersion returns the latest app version for the specified storage URL and app

@@ -5,7 +5,8 @@ type index struct {
 }
 
 type entry struct {
-	Name    string   `json:"name"`
-	Urls    []string `json:"urls"`
-	Version string   `json:"version"`
+	AppVersion string   `json:"appVersion"`
+	Name       string   `json:"name"`
+	Urls       []string `json:"urls"`
+	Version    string   `json:"version"`
 }
