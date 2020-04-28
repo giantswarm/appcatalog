@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"time"
 
 	"github.com/ghodss/yaml"
 	"github.com/giantswarm/microerror"
@@ -14,22 +15,41 @@ import (
 
 // GetLatestChart returns the latest chart tarball file for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
-func GetLatestChart(ctx context.Context, storageURL, app string) (string, error) {
+func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
 	index, err := getIndex(storageURL)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
 
-	var downloadURL string
-	{
-		entry, ok := index.Entries[app]
-		if !ok {
-			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
-		}
-		downloadURL = entry[0].Urls[0]
+	entries, ok := index.Entries[app]
+	if !ok {
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 	}
 
-	return downloadURL, nil
+	var latestCreated *time.Time
+	var latestChart string
+	for _, entry := range entries {
+		if appVersion != "" && entry.AppVersion != appVersion {
+			continue
+		}
+
+		t, err := parseTime(entry.Created)
+		if err != nil {
+			return "", microerror.Mask(err)
+		}
+
+		if latestCreated == nil || t.After(*latestCreated) {
+			latestCreated = t
+			latestChart = entry.Urls[0]
+			continue
+		}
+	}
+
+	if latestChart != "" {
+		return latestChart, nil
+	}
+
+	return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
 }
 
 // GetLatestVersion returns the latest app version for the specified storage URL and app
@@ -85,4 +105,12 @@ func getIndex(storageURL string) (index, error) {
 	}
 
 	return i, nil
+}
+
+func parseTime(created string) (*time.Time, error) {
+	t, err := time.Parse(time.RFC3339, created)
+	if err != nil {
+		return nil, microerror.Maskf(executionFailedError, "wrong timestamp format %#q", created)
+	}
+	return &t, nil
 }
