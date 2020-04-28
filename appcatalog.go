@@ -38,7 +38,7 @@ func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (st
 			return "", microerror.Mask(err)
 		}
 
-		if latestCreated == nil || latestCreated.After(*t) {
+		if latestCreated == nil || t.After(*latestCreated) {
 			latestCreated = t
 			latestChart = entry.Urls[0]
 			continue
