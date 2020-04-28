@@ -6,6 +6,7 @@ type index struct {
 
 type entry struct {
 	AppVersion string   `json:"appVersion"`
+	Created    string   `json:"created"`
 	Name       string   `json:"name"`
 	Urls       []string `json:"urls"`
 	Version    string   `json:"version"`

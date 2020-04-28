@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"time"
 
 	"github.com/ghodss/yaml"
 	"github.com/giantswarm/microerror"
@@ -25,14 +26,27 @@ func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (st
 		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 	}
 
-	if appVersion == "" {
-		return entries[0].Urls[0], nil
+	var latestCreated *time.Time
+	var latestChart string
+	for _, entry := range entries {
+		if appVersion != "" && entry.AppVersion != appVersion {
+			continue
+		}
+
+		t, err := parseTime(entry.Created)
+		if err != nil {
+			return "", microerror.Mask(err)
+		}
+
+		if latestCreated == nil || latestCreated.After(*t) {
+			latestCreated = t
+			latestChart = entry.Urls[0]
+			continue
+		}
 	}
 
-	for _, entry := range entries {
-		if entry.AppVersion == appVersion {
-			return entry.Urls[0], nil
-		}
+	if latestChart != "" {
+		return latestChart, nil
 	}
 
 	return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
@@ -91,4 +105,12 @@ func getIndex(storageURL string) (index, error) {
 	}
 
 	return i, nil
+}
+
+func parseTime(created string) (*time.Time, error) {
+	t, err := time.Parse(time.RFC3339, created)
+	if err != nil {
+		return nil, microerror.Maskf(executionFailedError, "wrong timestamp format %#q", created)
+	}
+	return &t, nil
 }
