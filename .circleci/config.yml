@@ -8,6 +8,7 @@ workflows:
       - architect/go-build:
           context: architect
           name: go-build
+          binary: appcatalog
           filters:
             tags:
               only: /^v.*/
