@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "{{ .Values.appCatalog.config.configMap.name }}"
+  name: "{{ include "resource.configmap.name" . }}"
   namespace: "{{ .Values.appCatalog.config.configMap.namespace }}"
 data:
 {{ if .Values.appCatalog.config.configMap.values }}
