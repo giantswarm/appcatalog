@@ -1,4 +1,4 @@
-{{ if and .Values.appCatalog.config .Values.appCatalog.config.configMap }}
+{{ if and .Values.appCatalog.config .Values.appCatalog.config.configMap ( .Values.appCatalog.config.configMap.external eq false ) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
