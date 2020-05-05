@@ -14,18 +14,14 @@ spec:
     URL: "{{ .Values.appCatalog.storage.URL }}"
   {{- if .Values.appCatalog.config }}
   config:
-    {{- if and .Values.appCatalog.config .Values.appCatalog.config.configMap }}
-    {{- if and .Values.appCatalog.config.configMap.managed .Values.appCatalog.config.configMap.values }}
+    {{- if and .Values.appCatalog.config .Values.appCatalog.config.configMap .Values.appCatalog.config.configMap.values }}
     configMap:
       name: "{{ include "resource.configmap.name" . }}"
       namespace: "{{ .Values.appCatalog.config.configMap.namespace }}"
     {{- end }}
-    {{- end }}
-    {{- if and .Values.appCatalog.config .Values.appCatalog.config.secret }}
-    {{- if and .Values.appCatalog.config.secret.managed .Values.appCatalog.config.secret.values }}
+    {{- if and .Values.appCatalog.config .Values.appCatalog.config.secret .Values.appCatalog.config.secret.values }}
     secret:
       name: "{{ include "resource.secret.name" . }}"
       namespace: "{{ .Values.appCatalog.config.secret.namespace }}"
-    {{- end }}
     {{- end }}
   {{- end }}
