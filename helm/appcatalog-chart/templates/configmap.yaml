@@ -1,14 +1,12 @@
 {{ if and .Values.appCatalog.config .Values.appCatalog.config.configMap }}
-{{ if .Values.appCatalog.config.configMap.managed }}
+{{ if and .Values.appCatalog.config.configMap.managed .Values.appCatalog.config.configMap.values }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: "{{ include "resource.configmap.name" . }}"
   namespace: "{{ .Values.appCatalog.config.configMap.namespace }}"
 data:
-{{ if .Values.appCatalog.config.configMap.values }}
   values: |
 {{- toYaml .Values.appCatalog.config.configMap.values | trim | nindent 4 }}
-{{ end -}}
 {{ end -}}
 {{ end -}}
