@@ -12,8 +12,10 @@ appCatalog:
     configMap:
       name: ""
       namespace: "default"
+      managed: true
       values:
     secret:
       name: ""
       namespace: "default"
+      managed: true
       values:
