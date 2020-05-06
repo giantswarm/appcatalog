@@ -17,3 +17,11 @@
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "configMapExists" -}}
+{{- or ( and .Values.appCatalog.config .Values.appCatalog.config.configMap .Values.appCatalog.config.configMap.values) ( not .Values.appCatalog.config.configMap.managed ) }}
+{{- end -}}
+
+{{- define "secretExists" -}}
+{{- or ( and .Values.appCatalog.config .Values.appCatalog.config.secret .Values.appCatalog.config.secret.values) ( not .Values.appCatalog.config.secret.managed ) }}
+{{- end -}}
