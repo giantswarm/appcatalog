@@ -12,14 +12,14 @@ spec:
   storage:
     type: "helm"
     URL: "{{ .Values.appCatalog.storage.URL }}"
-  {{- if or ( eq (include "configMapExists" .) "true" ) ( eq (include "secretExists" .) "true" ) }}
+  {{- if or ( ne (include "configMapExists" .) "false" ) ( ne (include "secretExists" .) "false" ) }}
   config:
-    {{- if eq (include "configMapExists" .) "true" }}
+    {{- if ne (include "configMapExists" .) "false" }}
     configMap:
       name: "{{ include "resource.configmap.name" . }}"
       namespace: "{{ .Values.appCatalog.config.configMap.namespace }}"
     {{- end }}
-    {{- if eq (include "secretExists" .) "true" }}
+    {{- if ne (include "secretExists" .) "false" }}
     secret:
       name: "{{ include "resource.secret.name" . }}"
       namespace: "{{ .Values.appCatalog.config.secret.namespace }}"
