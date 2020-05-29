@@ -11,11 +11,11 @@ appCatalog:
   config:
     configMap:
       name: ""
-      namespace: "default"
+      namespace: "giantswarm"
       managed: true
       values:
     secret:
       name: ""
-      namespace: "default"
+      namespace: "giantswarm"
       managed: true
       values:
