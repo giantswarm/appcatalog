@@ -4,6 +4,7 @@ metadata:
   name: "{{ .Values.appCatalog.name }}"
   labels:
     application.giantswarm.io/catalog-type: "{{ .Values.appCatalog.catalogType }}"
+    application.giantswarm.io/catalog-visibility: "{{ .Values.appCatalog.catalogVisibility }}"
     app-operator.giantswarm.io/version: "{{ .Values.appOperator.version }}"
 spec:
   title: "{{ .Values.appCatalog.title }}"
