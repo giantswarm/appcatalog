@@ -16,60 +16,21 @@ import (
 // GetLatestChart returns the latest chart tarball file for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
 func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
-	index, err := getIndex(storageURL)
+	entry, err := getLatestEntry(ctx, storageURL, app, appVersion)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
-
-	entries, ok := index.Entries[app]
-	if !ok {
-		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
-	}
-
-	var latestCreated *time.Time
-	var latestChart string
-	for _, entry := range entries {
-		if appVersion != "" && entry.AppVersion != appVersion {
-			continue
-		}
-
-		t, err := parseTime(entry.Created)
-		if err != nil {
-			return "", microerror.Mask(err)
-		}
-
-		if latestCreated == nil || t.After(*latestCreated) {
-			latestCreated = t
-			latestChart = entry.Urls[0]
-			continue
-		}
-	}
-
-	if latestChart != "" {
-		return latestChart, nil
-	}
-
-	return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
+	return entry.Urls[0], nil
 }
 
 // GetLatestVersion returns the latest app version for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
-func GetLatestVersion(ctx context.Context, storageURL, app string) (string, error) {
-	index, err := getIndex(storageURL)
+func GetLatestVersion(ctx context.Context, storageURL, app, appVersion string) (string, error) {
+	entry, err := getLatestEntry(ctx, storageURL, app, appVersion)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
-
-	var version string
-	{
-		entry, ok := index.Entries[app]
-		if !ok {
-			return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
-		}
-		version = entry[0].Version
-	}
-
-	return version, nil
+	return entry.Version, nil
 }
 
 // NewTarballURL returns the chart tarball URL for the specified app and version.
@@ -83,6 +44,43 @@ func NewTarballURL(baseURL string, appName string, version string) (string, erro
 	}
 	u.Path = path.Join(u.Path, fmt.Sprintf("%s-%s.tgz", appName, version))
 	return u.String(), nil
+}
+
+func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (entry, error) {
+	index, err := getIndex(storageURL)
+	if err != nil {
+		return entry{}, microerror.Mask(err)
+	}
+
+	entries, ok := index.Entries[app]
+	if !ok {
+		return entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
+	}
+
+	var latestCreated *time.Time
+	var latestEntry entry
+	for _, e := range entries {
+		if appVersion != "" && e.AppVersion != appVersion {
+			continue
+		}
+
+		t, err := parseTime(e.Created)
+		if err != nil {
+			return entry{}, microerror.Mask(err)
+		}
+
+		if latestCreated == nil || t.After(*latestCreated) {
+			latestCreated = t
+			latestEntry = e
+			continue
+		}
+	}
+
+	if latestEntry.Name != "" {
+		return latestEntry, nil
+	}
+
+	return entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
 }
 
 func getIndex(storageURL string) (index, error) {
