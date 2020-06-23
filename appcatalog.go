@@ -20,6 +20,7 @@ func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (st
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
+
 	return entry.Urls[0], nil
 }
 
@@ -30,6 +31,7 @@ func GetLatestVersion(ctx context.Context, storageURL, app, appVersion string) (
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
+
 	return entry.Version, nil
 }
 
