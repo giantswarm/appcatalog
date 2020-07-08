@@ -87,7 +87,9 @@ func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (en
 
 func getIndex(storageURL string) (index, error) {
 	indexURL := fmt.Sprintf("%s/index.yaml", storageURL)
-	resp, err := http.Get(indexURL)
+
+	// We use https in catalog URLs so we can disable the linter in this case.
+	resp, err := http.Get(indexURL) // #nosec
 	if err != nil {
 		return index{}, microerror.Mask(err)
 	}
