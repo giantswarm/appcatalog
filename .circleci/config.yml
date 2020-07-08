@@ -22,4 +22,4 @@ workflows:
           # Make sure docker image is successfully built.
           filters:
             tags:
-              only: /^v.*/              
+              only: /^v.*/
