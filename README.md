@@ -3,18 +3,36 @@
 
 # appcatalog
 
-This repo contains a helm chart that opsctl uses to deploy `appcatalog CR`s to
-our control planes.
+This repo contains 2 components that support the Giant Swarm App Platform.
 
-## Crafting a release
+- A Helm chart used by opsctl ensure appcatalogs. 
+- A Go library we use in integration tests to get the correct version of
+managed apps. 
 
-The release process is automated but not automatic - once changes are on master,
-create a github release. That will trigger circleci and publish the chart package
-to the release artifacts.
+## Getting Project
 
-### Steps:
+Clone the git repository: https://github.com/giantswarm/appcatalog.git
 
-  1. Merge your PR
-  2. Draft a new release https://github.com/giantswarm/appcatalog/releases/new
-  3. Update the reference to the chart in opsctl: https://github.com/giantswarm/opsctl/blob/1a4e861d0fdff530dc7bef663bb398a960191975/command/ensure/appcatalogs/command.go#L29
+### How to build
 
+Build it using the standard `go build` command.
+
+```
+go build github.com/giantswarm/appcatalog
+```
+
+## Contact
+
+- Mailing list: [giantswarm](https://groups.google.com/forum/!forum/giantswarm)
+- IRC: #[giantswarm](irc://irc.freenode.org:6667/#giantswarm) on freenode.org
+- Bugs: [issues](https://github.com/giantswarm/chart-operator/issues)
+
+## Contributing & Reporting Bugs
+
+See [CONTRIBUTING](CONTRIBUTING.md) for details on submitting patches, the
+contribution workflow as well as reporting bugs.
+
+## License
+
+appcatalog is under the Apache 2.0 license. See the [LICENSE](LICENSE) file for
+details.
