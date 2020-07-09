@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.2.6] - 2020-07-09
+
 ### Changed
 
 - Push chart to control plane catalog.
@@ -27,6 +29,7 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.2.5...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.2.6...HEAD
+[0.2.6]: https://github.com/giantswarm/appcatalog/compare/v0.2.5...v0.2.6
 [v0.2.5]: https://github.com/giantswarm/appcatalog/compare/v0.2.4...v0.2.5
 [v0.2.4]: https://github.com/giantswarm/app-operator/releases/tag/v0.2.4
