@@ -9,8 +9,8 @@ import (
 	"path"
 	"time"
 
-	"github.com/ghodss/yaml"
 	"github.com/giantswarm/microerror"
+	"sigs.k8s.io/yaml"
 )
 
 // GetLatestChart returns the latest chart tarball file for the specified storage URL and app
