@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.2.7] - 2020-07-23
+
 ### Changed
 
 - Use sigs.k8s.io/yaml not github.com/ghodss/yaml. 
@@ -33,7 +35,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.2.6...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.2.7...HEAD
+[0.2.7]: https://github.com/giantswarm/appcatalog/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/giantswarm/appcatalog/compare/v0.2.5...v0.2.6
 [v0.2.5]: https://github.com/giantswarm/appcatalog/compare/v0.2.4...v0.2.5
 [v0.2.4]: https://github.com/giantswarm/app-operator/releases/tag/v0.2.4
