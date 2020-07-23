@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Use sigs.k8s.io/yaml not github.com/ghodss/yaml. 
+
 ## [0.2.6] - 2020-07-09
 
 ### Changed
