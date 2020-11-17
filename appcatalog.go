@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"strings"
 	"time"
 
 	"github.com/giantswarm/microerror"
@@ -62,7 +63,7 @@ func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (en
 	var latestCreated *time.Time
 	var latestEntry entry
 	for _, e := range entries {
-		if appVersion != "" && e.AppVersion != appVersion {
+		if appVersion != "" && !strings.HasSuffix(e.AppVersion, appVersion) {
 			continue
 		}
 
