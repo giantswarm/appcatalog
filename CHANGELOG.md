@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Comparing `appVersion` as substring.
+
 ## [0.2.7] - 2020-07-23
 
 ### Changed
