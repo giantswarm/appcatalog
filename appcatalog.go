@@ -63,7 +63,15 @@ func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (en
 	var latestCreated *time.Time
 	var latestEntry entry
 	for _, e := range entries {
-		if appVersion != "" && !strings.HasSuffix(e.AppVersion, appVersion) {
+		if appVersion == "" {
+			continue
+		}
+
+		if !strings.HasSuffix(e.AppVersion, appVersion) {
+			continue
+		}
+
+		if !strings.HasSuffix(e.Version, appVersion) {
 			continue
 		}
 
