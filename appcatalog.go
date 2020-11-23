@@ -67,11 +67,7 @@ func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (en
 			continue
 		}
 
-		if !strings.HasSuffix(e.AppVersion, appVersion) {
-			continue
-		}
-
-		if !strings.HasSuffix(e.Version, appVersion) {
+		if !strings.HasSuffix(e.AppVersion, appVersion) && !strings.HasSuffix(e.Version, appVersion) {
 			continue
 		}
 
