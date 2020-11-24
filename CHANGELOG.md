@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.3.1] - 2020-11-23
+
 ### Changed
 
 - Comparing `appVersion` with version, too.
@@ -45,7 +47,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/giantswarm/appcatalog/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/giantswarm/appcatalog/compare/v0.2.7...v0.3.0
 [0.2.7]: https://github.com/giantswarm/appcatalog/compare/v0.2.6...v0.2.7
 [0.2.6]: https://github.com/giantswarm/appcatalog/compare/v0.2.5...v0.2.6
