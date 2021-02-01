@@ -87,11 +87,3 @@ func getIndex(storageURL string) (index, error) {
 
 	return i, nil
 }
-
-func parseTime(created string) (*time.Time, error) {
-	t, err := time.Parse(time.RFC3339, created)
-	if err != nil {
-		return nil, microerror.Maskf(executionFailedError, "wrong timestamp format %#q", created)
-	}
-	return &t, nil
-}
