@@ -1,6 +1,7 @@
 package appcatalog
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -15,7 +16,29 @@ import (
 
 // GetLatestEntry returns the latest app entry for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
-func GetLatestEntry(storageURL, app, appVersion string) (Entry, error) {
+func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
+	entry, err := GetLatestEntry(ctx, storageURL, app, appVersion)
+	if err != nil {
+		return "", microerror.Mask(err)
+	}
+
+	return entry.Urls[0], nil
+}
+
+// GetLatestVersion returns the latest app version for the specified storage URL and app
+// and returns notFoundError when it can't find a specified app.
+func GetLatestVersion(ctx context.Context, storageURL, app, appVersion string) (string, error) {
+	entry, err := GetLatestEntry(ctx, storageURL, app, appVersion)
+	if err != nil {
+		return "", microerror.Mask(err)
+	}
+
+	return entry.Version, nil
+}
+
+// GetLatestEntry returns the latest app entry for the specified storage URL and app
+// and returns notFoundError when it can't find a specified app.
+func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (Entry, error) {
 	index, err := getIndex(storageURL)
 	if err != nil {
 		return Entry{}, microerror.Mask(err)
