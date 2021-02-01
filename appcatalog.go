@@ -15,6 +15,7 @@ import (
 )
 
 // GetLatestChart returns the latest chart tarball file for the specified storage URL and app
+// and returns notFoundError when it can't find a specified app.
 func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
 	entry, err := GetLatestEntry(ctx, storageURL, app, appVersion)
 	if err != nil {
