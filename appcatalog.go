@@ -14,8 +14,7 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-// GetLatestEntry returns the latest app entry for the specified storage URL and app
-// and returns notFoundError when it can't find a specified app.
+// GetLatestChart returns the latest chart tarball file for the specified storage URL and app
 func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
 	entry, err := GetLatestEntry(ctx, storageURL, app, appVersion)
 	if err != nil {
@@ -34,6 +33,19 @@ func GetLatestVersion(ctx context.Context, storageURL, app, appVersion string) (
 	}
 
 	return entry.Version, nil
+}
+
+// NewTarballURL returns the chart tarball URL for the specified app and version.
+func NewTarballURL(baseURL string, appName string, version string) (string, error) {
+	if baseURL == "" || appName == "" || version == "" {
+		return "", microerror.Maskf(executionFailedError, "baseURL %#q, appName %#q, release %#q should not be empty", baseURL, appName, version)
+	}
+	u, err := url.Parse(baseURL)
+	if err != nil {
+		return "", microerror.Mask(err)
+	}
+	u.Path = path.Join(u.Path, fmt.Sprintf("%s-%s.tgz", appName, version))
+	return u.String(), nil
 }
 
 // GetLatestEntry returns the latest app entry for the specified storage URL and app
@@ -72,19 +84,6 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 	}
 
 	return Entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
-}
-
-// NewTarballURL returns the chart tarball URL for the specified app and version.
-func NewTarballURL(baseURL string, appName string, version string) (string, error) {
-	if baseURL == "" || appName == "" || version == "" {
-		return "", microerror.Maskf(executionFailedError, "baseURL %#q, appName %#q, release %#q should not be empty", baseURL, appName, version)
-	}
-	u, err := url.Parse(baseURL)
-	if err != nil {
-		return "", microerror.Mask(err)
-	}
-	u.Path = path.Join(u.Path, fmt.Sprintf("%s-%s.tgz", appName, version))
-	return u.String(), nil
 }
 
 func getIndex(storageURL string) (index, error) {
