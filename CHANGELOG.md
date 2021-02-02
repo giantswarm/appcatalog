@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Added `GetLatestEntry` function and expose `Entry` struct.
+
 ## [0.3.2] - 2020-12-02
 
 ### Fixed
