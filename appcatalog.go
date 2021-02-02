@@ -17,7 +17,7 @@ import (
 // GetLatestChart returns the latest chart tarball file for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
 func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (string, error) {
-	entry, err := getLatestEntry(ctx, storageURL, app, appVersion)
+	entry, err := GetLatestEntry(ctx, storageURL, app, appVersion)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
@@ -28,7 +28,7 @@ func GetLatestChart(ctx context.Context, storageURL, app, appVersion string) (st
 // GetLatestVersion returns the latest app version for the specified storage URL and app
 // and returns notFoundError when it can't find a specified app.
 func GetLatestVersion(ctx context.Context, storageURL, app, appVersion string) (string, error) {
-	entry, err := getLatestEntry(ctx, storageURL, app, appVersion)
+	entry, err := GetLatestEntry(ctx, storageURL, app, appVersion)
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
@@ -49,35 +49,32 @@ func NewTarballURL(baseURL string, appName string, version string) (string, erro
 	return u.String(), nil
 }
 
-func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (entry, error) {
+// GetLatestEntry returns the latest app entry for the specified storage URL and app
+// and returns notFoundError when it can't find a specified app.
+func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (Entry, error) {
 	index, err := getIndex(storageURL)
 	if err != nil {
-		return entry{}, microerror.Mask(err)
+		return Entry{}, microerror.Mask(err)
 	}
 
 	entries, ok := index.Entries[app]
 	if !ok {
-		return entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
+		return Entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
 	}
 
 	var latestCreated *time.Time
-	var latestEntry entry
+	var latestEntry Entry
 	for _, e := range entries {
 		if appVersion != "" {
 			// appVersion could be the SHA string which is followed by the chart version.
-			// if this SHA is neither the suffix of appVersion or the suffix of version in appcatalog entry, we skip it.
+			// if this SHA is neither the suffix of appVersion or the suffix of version in appcatalog Entry, we skip it.
 			if !strings.HasSuffix(e.AppVersion, appVersion) && !strings.HasSuffix(e.Version, appVersion) {
 				continue
 			}
 		}
 
-		t, err := parseTime(e.Created)
-		if err != nil {
-			return entry{}, microerror.Mask(err)
-		}
-
-		if latestCreated == nil || t.After(*latestCreated) {
-			latestCreated = t
+		if latestCreated == nil || e.Created.After(*latestCreated) {
+			latestCreated = &e.Created
 			latestEntry = e
 			continue
 		}
@@ -87,7 +84,7 @@ func getLatestEntry(ctx context.Context, storageURL, app, appVersion string) (en
 		return latestEntry, nil
 	}
 
-	return entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
+	return Entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
 }
 
 func getIndex(storageURL string) (index, error) {
@@ -112,12 +109,4 @@ func getIndex(storageURL string) (index, error) {
 	}
 
 	return i, nil
-}
-
-func parseTime(created string) (*time.Time, error) {
-	t, err := time.Parse(time.RFC3339, created)
-	if err != nil {
-		return nil, microerror.Maskf(executionFailedError, "wrong timestamp format %#q", created)
-	}
-	return &t, nil
 }
