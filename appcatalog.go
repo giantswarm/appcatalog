@@ -66,9 +66,8 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 	var latestEntry Entry
 	for _, e := range entries {
 		if appVersion != "" {
-			// appVersion could be the SHA string which is followed by the chart version.
-			// if this SHA is neither the suffix of appVersion or the suffix of version in appcatalog Entry, we skip it.
-			if !strings.HasSuffix(e.AppVersion, appVersion) && !strings.HasSuffix(e.Version, appVersion) {
+			// If the version suffix doesn't match the SHA string we skip it.
+			if !strings.HasSuffix(e.Version, appVersion) {
 				continue
 			}
 		}
