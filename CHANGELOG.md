@@ -7,6 +7,11 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Do not compare AppVersion when getting the latest entry as it no longer
+contains the Git commit SHA.
+
 ## [0.4.0] - 2021-02-02
 
 ### Added
