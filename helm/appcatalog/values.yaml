@@ -7,7 +7,7 @@ appCatalog:
   description: ""
   logoURL: "http://giantswarm.com/catalog-logo.png"
   storage:
-    URL: "https://giantswarm.github.com/changeme-catalog/"
+    URL: "https://giantswarm.github.io/changeme-catalog/"
   config:
     configMap:
       name: ""
