@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Change catalog base url from giantswarm.github.com to giantswarm.github.io.
+
 ## [0.4.1] - 2021-03-09
 
 ### Fixed
@@ -42,7 +46,7 @@ contains the Git commit SHA.
 
 ### Changed
 
-- Use sigs.k8s.io/yaml not github.com/ghodss/yaml. 
+- Use sigs.k8s.io/yaml not github.com/ghodss/yaml.
 
 ## [0.2.6] - 2020-07-09
 
