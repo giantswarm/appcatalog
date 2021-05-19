@@ -2,7 +2,7 @@ apiVersion: "application.giantswarm.io/v1alpha1"
 kind: Catalog
 metadata:
   name: "{{ .Values.appCatalog.name }}"
-  {{- if eq .Values.appCatalog.catalogType "internal" }}
+  {{- if eq .Values.appCatalog.catalogVisibility "internal" }}
   namespace: "giantswarm"
   {{- else }}
   namespace: "default"
