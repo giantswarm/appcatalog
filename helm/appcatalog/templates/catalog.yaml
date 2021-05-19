@@ -1,9 +1,12 @@
 apiVersion: "application.giantswarm.io/v1alpha1"
-kind: AppCatalog
+kind: Catalog
 metadata:
   name: "{{ .Values.appCatalog.name }}"
-  annotations:
-    helm.sh/resource-policy: keep
+  {{- if eq .Values.appCatalog.catalogType "internal" }}
+  namespace: "giantswarm"
+  {{- else }}
+  namespace: "default"
+  {{- end }}
   labels:
     application.giantswarm.io/catalog-type: "{{ .Values.appCatalog.catalogType }}"
     application.giantswarm.io/catalog-visibility: "{{ .Values.appCatalog.catalogVisibility }}"
@@ -26,7 +29,7 @@ spec:
     secret:
       name: "{{ include "resource.secret.name" . }}"
       namespace: "{{ .Values.appCatalog.config.secret.namespace }}"
-    {{- end }}
+  {{- end }}
   {{- else }}
   config: {}
   {{- end }}
