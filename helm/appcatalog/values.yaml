@@ -2,6 +2,7 @@ appOperator:
   version: "1.0.0"
 
 appCatalog:
+  catalogVisibility: ""
   name: ""
   title: ""
   description: ""
