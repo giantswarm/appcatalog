@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `Catalog` CRs.
+
 ## [0.4.2] - 2021-04-16
 
 ### Fixed
