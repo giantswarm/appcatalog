@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.6.0] - 2021-07-28
+
 ### Added
 
 - Add `Keywords` into Entry struct.
@@ -82,7 +84,8 @@ contains the Git commit SHA.
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/giantswarm/appcatalog/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/giantswarm/appcatalog/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/giantswarm/appcatalog/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/giantswarm/appcatalog/compare/v0.4.0...v0.4.1
