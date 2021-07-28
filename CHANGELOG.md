@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `Keywords` into Entry struct.
+
 ## [0.5.0] - 2021-06-28
 
 ### Added

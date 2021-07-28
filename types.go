@@ -12,6 +12,7 @@ type Entry struct {
 	Description string    `json:"description"`
 	Home        string    `json:"home"`
 	Icon        string    `json:"icon"`
+	Keywords    []string  `json:"keywords"`
 	Name        string    `json:"name"`
 	Urls        []string  `json:"urls"`
 	Version     string    `json:"version"`
