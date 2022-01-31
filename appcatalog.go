@@ -86,6 +86,30 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 	return Entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
 }
 
+func GetTarballURL(ctx context.Context, storageURL, app, version string) (string, error) {
+	index, err := getIndex(storageURL)
+	if err != nil {
+		return "", microerror.Mask(err)
+	}
+
+	entries, ok := index.Entries[app]
+	if !ok {
+		return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml", app)
+	}
+
+	for _, e := range entries {
+		if e.Version == version {
+			if len(e.Urls) == 0 {
+				return "", microerror.Maskf(notFoundError, "no URL in index.yaml for app %#q version %#q", app, version)
+			}
+
+			return e.Urls[0], nil
+		}
+	}
+
+	return "", microerror.Maskf(notFoundError, "no app %#q in index.yaml with given version %#q", app, version)
+}
+
 func getIndex(storageURL string) (index, error) {
 	indexURL := fmt.Sprintf("%s/index.yaml", storageURL)
 
