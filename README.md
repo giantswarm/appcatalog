@@ -5,9 +5,9 @@
 
 This repo contains 2 components that support the Giant Swarm App Platform.
 
-- A Helm chart used by opsctl ensure appcatalogs. 
+- A Helm chart used by opsctl ensure appcatalogs.
 - A Go library we use in integration tests to get the correct version of
-managed apps. 
+managed apps.
 
 ## Getting Project
 
