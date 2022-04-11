@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+- Add support for OCI tarball URLs.
+
 ## [0.6.0] - 2021-07-28
 
 ### Added

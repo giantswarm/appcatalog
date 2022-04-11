@@ -45,7 +45,11 @@ func NewTarballURL(baseURL string, appName string, version string) (string, erro
 	if err != nil {
 		return "", microerror.Mask(err)
 	}
-	u.Path = path.Join(u.Path, fmt.Sprintf("%s-%s.tgz", appName, version))
+	if u.Scheme == "oci" {
+		u.Path = path.Join(u.Path, fmt.Sprintf("%s:%s", appName, version))
+	} else {
+		u.Path = path.Join(u.Path, fmt.Sprintf("%s-%s.tgz", appName, version))
+	}
 	return u.String(), nil
 }
 
