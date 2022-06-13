@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.8.0] - 2022-06-13
+
 ## [0.7.0] - 2022-04-11
 
 - Add support for OCI tarball URLs.
@@ -88,7 +90,8 @@ contains the Git commit SHA.
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/giantswarm/appcatalog/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/giantswarm/appcatalog/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/giantswarm/appcatalog/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/giantswarm/appcatalog/compare/v0.4.2...v0.5.0
