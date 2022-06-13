@@ -15,8 +15,15 @@ spec:
   description: "{{ .Values.appCatalog.description }}"
   logoURL: "{{ .Values.appCatalog.logoURL }}"
   storage:
-    type: "helm"
+    type: {{ default "helm" .Values.appCatalog.storage.type }}
     URL: "{{ .Values.appCatalog.storage.URL }}"
+  repositories:
+    - type: {{ default "helm" .Values.appCatalog.storage.type }}
+      URL: "{{ .Values.appCatalog.storage.URL }}"
+    {{- range .Values.appCatalog.repositories }}
+    - type: {{ .type }}
+      URL: "{{ .URL }}"
+    {{- end }}
   {{- if or ( ne (include "configMapExists" .) "false" ) ( ne (include "secretExists" .) "false" ) }}
   config:
     {{- if ne (include "configMapExists" .) "false" }}

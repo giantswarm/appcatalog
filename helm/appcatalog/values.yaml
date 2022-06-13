@@ -8,7 +8,9 @@ appCatalog:
   description: ""
   logoURL: "http://giantswarm.com/catalog-logo.png"
   storage:
+    type: "helm"
     URL: "https://giantswarm.github.io/changeme-catalog/"
+  repositories: []
   config:
     configMap:
       name: ""
