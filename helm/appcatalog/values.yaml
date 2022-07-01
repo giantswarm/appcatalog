@@ -21,4 +21,5 @@ appCatalog:
       name: ""
       namespace: "giantswarm"
       managed: true
+      mergeIntoCM: false
       values:

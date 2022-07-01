@@ -25,3 +25,11 @@
 {{- define "secretExists" -}}
 {{- or ( and .Values.appCatalog.config .Values.appCatalog.config.secret .Values.appCatalog.config.secret.values) ( not .Values.appCatalog.config.secret.managed ) }}
 {{- end -}}
+
+{{- define "configMapValues" -}}
+{{- if .Values.appCatalog.config.secret.mergeIntoCM -}}
+{{- mergeOverwrite .Values.appCatalog.config.configMap.values .Values.appCatalog.config.secret.values | toYaml | nindent 4 }}
+{{- else -}}
+{{ .Values.appCatalog.config.configMap.values | toYaml | nindent 4 }}
+{{- end -}}
+{{- end -}}
