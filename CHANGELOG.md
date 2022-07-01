@@ -9,6 +9,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [0.9.0] - 2022-07-01
 
+- Add support for merging Secret's values into ConfigMap.
+
 ## [0.8.0] - 2022-06-13
 
 ## [0.7.0] - 2022-04-11
