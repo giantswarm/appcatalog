@@ -23,7 +23,7 @@
 {{- end -}}
 
 {{- define "secretExists" -}}
-{{- or ( and .Values.appCatalog.config .Values.appCatalog.config.secret .Values.appCatalog.config.secret.values) ( not .Values.appCatalog.config.secret.managed ) }}
+{{- or ( and .Values.appCatalog.config .Values.appCatalog.config.secret .Values.appCatalog.config.secret.values (not .Values.appCatalog.config.secret.mergeIntoCM)) ( not .Values.appCatalog.config.secret.managed ) }}
 {{- end -}}
 
 {{- define "configMapValues" -}}
