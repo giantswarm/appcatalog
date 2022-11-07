@@ -3,7 +3,7 @@ package appcatalog
 import (
 	"context"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"path"
@@ -100,7 +100,7 @@ func getIndex(storageURL string) (index, error) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return index{}, microerror.Mask(err)
 	}
