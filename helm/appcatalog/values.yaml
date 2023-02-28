@@ -3,6 +3,7 @@ appOperator:
 
 appCatalog:
   catalogVisibility: ""
+  catalogNamespace: ""
   name: ""
   title: ""
   description: ""
