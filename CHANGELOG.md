@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Add `catalogNamespace` Helm value to support fixing the catalog to a given namespace instead of purely depending on `catalogVisibility`
+
 ## [0.9.1] - 2022-07-01
 
 ## [0.9.0] - 2022-07-01
