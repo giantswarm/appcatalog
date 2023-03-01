@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [0.10.1] - 2023-03-01
+
 ### Fixed
 
 - Fix JSON schema for Helm values to actually reflect the desired data structure
@@ -106,7 +108,8 @@ contains the Git commit SHA.
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v0.10.1...HEAD
+[0.10.1]: https://github.com/giantswarm/appcatalog/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/giantswarm/appcatalog/compare/v0.9.1...v0.10.0
 [0.9.1]: https://github.com/giantswarm/appcatalog/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/giantswarm/appcatalog/compare/v0.8.0...v0.9.0
