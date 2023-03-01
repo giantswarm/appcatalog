@@ -17,10 +17,10 @@ appCatalog:
       name: ""
       namespace: "giantswarm"
       managed: true
-      values:
+      values: {}
     secret:
       name: ""
       namespace: "giantswarm"
       managed: true
       mergeIntoCM: false
-      values:
+      values: {}

@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix JSON schema for Helm values to actually reflect the desired data structure
+
 ## [0.10.0] - 2023-03-01
 
 ### Added
