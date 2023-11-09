@@ -68,16 +68,16 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 
 	var latestCreated *time.Time
 	var latestEntry Entry
-	for _, e := range entries {
+	for i, e := range entries {
 		if appVersion != "" {
 			// If the version suffix doesn't match the SHA string we skip it.
-			if !strings.HasSuffix(e.Version, appVersion) {
+			if !strings.HasSuffix(entries[i].Version, appVersion) {
 				continue
 			}
 		}
 
-		if latestCreated == nil || e.Created.After(*latestCreated) {
-			latestCreated = &e.Created
+		if latestCreated == nil || entries[i].Created.After(*latestCreated) {
+			latestCreated = &entries[i].Created
 			latestEntry = e
 			continue
 		}
