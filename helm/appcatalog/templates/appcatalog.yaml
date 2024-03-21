@@ -31,4 +31,4 @@ spec:
   {{- else }}
   config: {}
   {{- end }}
-{{- end }}}
+{{- end }}
