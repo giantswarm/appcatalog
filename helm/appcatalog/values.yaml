@@ -1,6 +1,11 @@
 appOperator:
   version: "1.0.0"
 
+vintage:
+  appCatalog:
+    # AppCatalogs are deprecated in favour of Catalogs
+    create: false
+
 appCatalog:
   catalogVisibility: ""
   catalogNamespace: ""

@@ -1,3 +1,4 @@
+{{- if .Values.vintage.appCatalog.create  }}
 apiVersion: "application.giantswarm.io/v1alpha1"
 kind: AppCatalog
 metadata:
@@ -30,3 +31,4 @@ spec:
   {{- else }}
   config: {}
   {{- end }}
+{{- end }}}
