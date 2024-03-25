@@ -1,5 +1,5 @@
-[![GoDoc](https://godoc.org/github.com/giantswarm/appcatalog?status.svg)](http://godoc.org/github.com/giantswarm/appcatalog)
-[![CircleCI](https://circleci.com/gh/giantswarm/appcatalog.svg?style=shield)](https://circleci.com/gh/giantswarm/appcatalog)
+[![Go Reference](https://pkg.go.dev/badge/github.com/giantswarm/appcatalog.svg)](https://pkg.go.dev/github.com/giantswarm/appcatalog)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/appcatalog/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/appcatalog/tree/master)
 
 # appcatalog
 
@@ -24,7 +24,6 @@ go build github.com/giantswarm/appcatalog
 ## Contact
 
 - Mailing list: [giantswarm](https://groups.google.com/forum/!forum/giantswarm)
-- IRC: #[giantswarm](irc://irc.freenode.org:6667/#giantswarm) on freenode.org
 - Bugs: [issues](https://github.com/giantswarm/appcatalog/issues)
 
 ## Contributing & Reporting Bugs
