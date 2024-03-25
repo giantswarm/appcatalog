@@ -88,6 +88,19 @@
                     "type": "string"
                 }
             }
+        },
+        "vintage": {
+            "type": "object",
+            "properties": {
+                "appCatalog": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
         }
     }
 }
