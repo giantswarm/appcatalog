@@ -9,6 +9,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [1.0.0] - 2024-03-25
 
+### Changed
+
+- Long deprecated `AppCatalog` CRs are now not created by default. Can be controlled by new Helm value `.vintage.appCatalog.create` which defaults to `false`.
+
 ## [0.10.1] - 2023-03-01
 
 ### Fixed
