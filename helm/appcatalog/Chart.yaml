@@ -4,3 +4,5 @@ home: https://github.com/giantswarm/appcatalog
 name: appcatalog
 appVersion: [[ .AppVersion ]]
 version: [[ .Version ]]
+annotations:
+  application.giantswarm.io/team: honeybadger
