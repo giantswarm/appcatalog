@@ -1,3 +1,6 @@
+name: appcatalog
+serviceType: managed
+
 appOperator:
   version: "1.0.0"
 
