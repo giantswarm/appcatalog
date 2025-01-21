@@ -24,6 +24,4 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
-            - master
+            only: /.*/
