@@ -16,6 +16,7 @@ workflows:
     - architect/push-to-app-catalog:
         context: architect
         name: push-appcatalog-to-control-plane-app-catalog
+        executor: app-build-suite
         app_catalog: control-plane-catalog
         app_catalog_test: control-plane-test-catalog
         chart: appcatalog
