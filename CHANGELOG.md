@@ -7,6 +7,10 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate Chart.yaml annotations to new format as per https://docs.giantswarm.io/reference/platform-api/chart-metadata/
+
 ## [1.0.0] - 2024-03-25
 
 ### Changed
@@ -115,6 +119,10 @@ contains the Git commit SHA.
 - Flattening operator release structure.
 
 [Unreleased]: https://github.com/giantswarm/appcatalog/compare/v1.0.0...HEAD
+
+### Changed
+
+- Migrate Chart.yaml annotations to new format as per https://docs.giantswarm.io/reference/platform-api/chart-metadata/
 [1.0.0]: https://github.com/giantswarm/appcatalog/compare/v0.10.1...v1.0.0
 [0.10.1]: https://github.com/giantswarm/appcatalog/compare/v0.10.0...v0.10.1
 [0.10.0]: https://github.com/giantswarm/appcatalog/compare/v0.9.1...v0.10.0
