@@ -3,7 +3,8 @@ description: A Helm chart for appcatalog CRs and related configmaps and secrets.
   by opsctl ensure appcatalogs.
 home: https://github.com/giantswarm/appcatalog
 name: appcatalog
-appVersion: [[ .AppVersion ]]
-version: [[ .Version ]]
+appVersion: 1.0.1-dev
+version: 1.0.1-dev
 annotations:
   io.giantswarm.application.team: honeybadger
+icon: https://s.giantswarm.io/app-icons/giantswarm/1/dark.svg
