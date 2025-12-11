@@ -5,6 +5,8 @@ kind: ConfigMap
 metadata:
   name: "{{ include "resource.configmap.name" . }}"
   namespace: "{{ .Values.appCatalog.config.configMap.namespace }}"
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
 data:
   values: |
 {{- include "configMapValues" . }}

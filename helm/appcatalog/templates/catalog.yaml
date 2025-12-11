@@ -12,6 +12,7 @@ metadata:
   namespace: "{{ .Values.appCatalog.catalogNamespace }}"
   {{- end }}
   labels:
+    {{- include "labels.common" . | nindent 4 }}
     application.giantswarm.io/catalog-type: "{{ .Values.appCatalog.catalogType }}"
     application.giantswarm.io/catalog-visibility: "{{ .Values.appCatalog.catalogVisibility }}"
 spec:

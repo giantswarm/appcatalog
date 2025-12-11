@@ -6,6 +6,7 @@ metadata:
   annotations:
     helm.sh/resource-policy: keep
   labels:
+    {{- include "labels.common" . | nindent 4 }}
     application.giantswarm.io/catalog-type: "{{ .Values.appCatalog.catalogType }}"
     application.giantswarm.io/catalog-visibility: "{{ .Values.appCatalog.catalogVisibility }}"
     app-operator.giantswarm.io/version: "{{ .Values.appOperator.version }}"
