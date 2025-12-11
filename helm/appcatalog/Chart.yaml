@@ -1,10 +1,9 @@
 apiVersion: v2
-description: A Helm chart for appcatalog CRs and related configmaps and secrets. Used
-  by opsctl ensure appcatalogs.
+description: A Helm chart for appcatalog CRs and related configmaps and secrets. Used by opsctl ensure appcatalogs.
 home: https://github.com/giantswarm/appcatalog
 name: appcatalog
 appVersion: 1.0.1-dev
-version: 1.0.1-dev
+version: 1.0.1
 annotations:
   io.giantswarm.application.team: honeybadger
 icon: https://s.giantswarm.io/app-icons/giantswarm/1/dark.svg
