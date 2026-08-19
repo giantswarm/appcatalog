@@ -7,6 +7,13 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Added
+
+- Export `MatchesVersion`, the chart-version matcher added in v1.0.2, so callers outside chart
+  resolution can reuse it. `apptest` compares a deployed App CR's `status.version` against the commit
+  SHA under test with the same `strings.HasSuffix` assumption that v1.0.2 fixed here, and would
+  otherwise have to duplicate the rule.
+
 ## [1.0.2] - 2026-08-19
 
 ### Fixed

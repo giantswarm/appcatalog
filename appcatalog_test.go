@@ -2,13 +2,13 @@ package appcatalog
 
 import "testing"
 
-// Test_matchesAppVersion covers both chart version formats architect has published.
+// Test_MatchesVersion covers both chart version formats architect has published.
 //
 // The orb 6.x format is "<version>-<full 40 character SHA>"; the orb 9.x format is the
 // gitsemver development version, whose trailing SHA is abbreviated to seven characters.
 // Callers pass either a full SHA (apptest App.SHA, from CIRCLE_SHA1) or a plain chart
 // version (apptest App.Version).
-func Test_matchesAppVersion(t *testing.T) {
+func Test_MatchesVersion(t *testing.T) {
 	const (
 		fullSHA  = "a7818251ce584fd3279f8457c90fa2e02dbb3ba4"
 		otherSHA = "2df89eee6b9775863be1dcf6bdb375ef108026cd"
@@ -94,9 +94,9 @@ func Test_matchesAppVersion(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			actual := matchesAppVersion(tc.entryVersion, tc.appVersion)
+			actual := MatchesVersion(tc.entryVersion, tc.appVersion)
 			if actual != tc.expected {
-				t.Fatalf("matchesAppVersion(%#q, %#q) == %v, want %v", tc.entryVersion, tc.appVersion, actual, tc.expected)
+				t.Fatalf("MatchesVersion(%#q, %#q) == %v, want %v", tc.entryVersion, tc.appVersion, actual, tc.expected)
 			}
 		})
 	}
