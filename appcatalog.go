@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"regexp"
 	"strings"
 	"time"
 
@@ -69,11 +70,8 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 	var latestCreated *time.Time
 	var latestEntry Entry
 	for i, e := range entries {
-		if appVersion != "" {
-			// If the version suffix doesn't match the SHA string we skip it.
-			if !strings.HasSuffix(entries[i].Version, appVersion) {
-				continue
-			}
+		if appVersion != "" && !matchesAppVersion(entries[i].Version, appVersion) {
+			continue
 		}
 
 		if latestCreated == nil || entries[i].Created.After(*latestCreated) {
@@ -88,6 +86,47 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 	}
 
 	return Entry{}, microerror.Maskf(notFoundError, "no app %#q in index.yaml with given appVersion %#q", app, appVersion)
+}
+
+// gitSHA matches a full or abbreviated lowercase git object name.
+var gitSHA = regexp.MustCompile(`^[0-9a-f]{7,40}$`)
+
+// devVersionSHA captures the abbreviated SHA that gitsemver appends to a development
+// version, for example "ha781825" in
+// "2.0.2-dev.my-branch.2026-08-19.13-58-39.ha781825".
+var devVersionSHA = regexp.MustCompile(`\.h([0-9a-f]{7,40})$`)
+
+// matchesAppVersion reports whether an index entry version satisfies the requested
+// appVersion.
+//
+// architect used to publish charts as "<version>-<full 40 character SHA>", so a plain
+// suffix test matched a caller passing CIRCLE_SHA1. Since architect orb 9.x the format is
+// the gitsemver development version shown above, whose trailing SHA is abbreviated to
+// seven characters -- a full SHA can never match that by suffix, and every lookup fails
+// with notFoundError even though the chart was published correctly. Accept both formats so
+// callers can keep passing the full SHA whichever orb published the chart.
+//
+// appVersion is also legitimately a plain chart version: apptest passes App.Version when
+// App.SHA is empty. The abbreviated comparison therefore only applies when appVersion
+// actually looks like a git object name, leaving the version path exactly as it was.
+func matchesAppVersion(entryVersion, appVersion string) bool {
+	// Preserved verbatim so both the full-SHA and the plain-version callers keep working.
+	if strings.HasSuffix(entryVersion, appVersion) {
+		return true
+	}
+
+	if !gitSHA.MatchString(appVersion) {
+		return false
+	}
+
+	match := devVersionSHA.FindStringSubmatch(entryVersion)
+	if match == nil {
+		return false
+	}
+
+	// The entry carries an abbreviated SHA, so it matches when it abbreviates the SHA
+	// the caller asked for.
+	return strings.HasPrefix(appVersion, match[1])
 }
 
 func getIndex(storageURL string) (index, error) {
