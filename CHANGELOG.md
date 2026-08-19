@@ -7,6 +7,19 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- Resolve charts published with an abbreviated SHA. `GetLatestEntry` selected an index entry with
+  `strings.HasSuffix(entry.Version, appVersion)`, which matched while architect published charts as
+  `<version>-<full 40 character SHA>` and callers passed `CIRCLE_SHA1`. Since architect orb 9.x the
+  format is the gitsemver development version, e.g.
+  `2.0.2-dev.my-branch.2026-08-19.13-58-39.ha781825`, whose trailing SHA is abbreviated to seven
+  characters -- a full SHA can never match that by suffix, so every lookup failed with
+  ``no app ... in index.yaml with given appVersion`` even though the chart had been published
+  correctly. Both formats are now accepted. The abbreviated comparison only applies when `appVersion`
+  looks like a git object name, so callers passing a plain chart version (`apptest` does this when
+  `App.SHA` is empty) are unaffected.
+
 ## [1.0.1] - 2025-12-11
 
 ### Changed
