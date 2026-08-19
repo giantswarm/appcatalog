@@ -7,6 +7,8 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-08-19
+
 ### Fixed
 
 - Resolve charts published with an abbreviated SHA. `GetLatestEntry` selected an index entry with
@@ -134,7 +136,8 @@ contains the Git commit SHA.
 
 - Flattening operator release structure.
 
-[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/appcatalog/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/giantswarm/appcatalog/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/giantswarm/appcatalog/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/giantswarm/appcatalog/compare/v0.10.1...v1.0.0
 [0.10.1]: https://github.com/giantswarm/appcatalog/compare/v0.10.0...v0.10.1
