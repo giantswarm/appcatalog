@@ -70,7 +70,7 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 	var latestCreated *time.Time
 	var latestEntry Entry
 	for i, e := range entries {
-		if appVersion != "" && !matchesAppVersion(entries[i].Version, appVersion) {
+		if appVersion != "" && !MatchesVersion(entries[i].Version, appVersion) {
 			continue
 		}
 
@@ -96,8 +96,12 @@ var gitSHA = regexp.MustCompile(`^[0-9a-f]{7,40}$`)
 // "2.0.2-dev.my-branch.2026-08-19.13-58-39.ha781825".
 var devVersionSHA = regexp.MustCompile(`\.h([0-9a-f]{7,40})$`)
 
-// matchesAppVersion reports whether an index entry version satisfies the requested
+// MatchesVersion reports whether a published chart version satisfies the requested
 // appVersion.
+//
+// It is exported because the same rule is needed outside chart resolution: apptest
+// compares a deployed App CR's status version against the commit SHA under test with the
+// very same suffix assumption, and would otherwise have to duplicate this logic.
 //
 // architect used to publish charts as "<version>-<full 40 character SHA>", so a plain
 // suffix test matched a caller passing CIRCLE_SHA1. Since architect orb 9.x the format is
@@ -109,9 +113,9 @@ var devVersionSHA = regexp.MustCompile(`\.h([0-9a-f]{7,40})$`)
 // appVersion is also legitimately a plain chart version: apptest passes App.Version when
 // App.SHA is empty. The abbreviated comparison therefore only applies when appVersion
 // actually looks like a git object name, leaving the version path exactly as it was.
-func matchesAppVersion(entryVersion, appVersion string) bool {
+func MatchesVersion(chartVersion, appVersion string) bool {
 	// Preserved verbatim so both the full-SHA and the plain-version callers keep working.
-	if strings.HasSuffix(entryVersion, appVersion) {
+	if strings.HasSuffix(chartVersion, appVersion) {
 		return true
 	}
 
@@ -119,7 +123,7 @@ func matchesAppVersion(entryVersion, appVersion string) bool {
 		return false
 	}
 
-	match := devVersionSHA.FindStringSubmatch(entryVersion)
+	match := devVersionSHA.FindStringSubmatch(chartVersion)
 	if match == nil {
 		return false
 	}
