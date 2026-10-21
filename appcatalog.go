@@ -91,10 +91,15 @@ func GetLatestEntry(ctx context.Context, storageURL, app, appVersion string) (En
 // gitSHA matches a full or abbreviated lowercase git object name.
 var gitSHA = regexp.MustCompile(`^[0-9a-f]{7,40}$`)
 
-// devVersionSHA captures the abbreviated SHA that gitsemver appends to a development
-// version, for example "ha781825" in
-// "2.0.2-dev.my-branch.2026-08-19.13-58-39.ha781825".
-var devVersionSHA = regexp.MustCompile(`\.h([0-9a-f]{7,40})$`)
+// devVersionSHA captures the abbreviated SHA that a gitsemver development version ends
+// with, in either of the schemas gitsemver has written (validLegacyDevRegex and
+// validDevRegex in gitsemver's pkg/gitsemver/validate.go):
+//
+//   - v2 (architect orb 9.x): "ha781825" in
+//     "2.0.2-dev.my-branch.2026-08-19.13-58-39.ha781825"
+//   - v3 (App Build Suite): "h150308c" in "4.2.2-r0fb6a962t20261021065246h150308c", that
+//     is "-r<crc32 of the branch>t<YYYYMMDDHHMMSS>h<short SHA>"
+var devVersionSHA = regexp.MustCompile(`(?:\.h|-r[0-9a-f]{8}t[0-9]{14}h)([0-9a-f]{7,40})$`)
 
 // MatchesVersion reports whether a published chart version satisfies the requested
 // appVersion.
@@ -105,10 +110,11 @@ var devVersionSHA = regexp.MustCompile(`\.h([0-9a-f]{7,40})$`)
 //
 // architect used to publish charts as "<version>-<full 40 character SHA>", so a plain
 // suffix test matched a caller passing CIRCLE_SHA1. Since architect orb 9.x the format is
-// the gitsemver development version shown above, whose trailing SHA is abbreviated to
-// seven characters -- a full SHA can never match that by suffix, and every lookup fails
-// with notFoundError even though the chart was published correctly. Accept both formats so
-// callers can keep passing the full SHA whichever orb published the chart.
+// a gitsemver development version as shown above (v2 schema with architect, v3 schema with
+// App Build Suite); both abbreviate the trailing SHA to seven characters -- a full SHA can
+// never match that by suffix, and every lookup fails with notFoundError even though the
+// chart was published correctly. Accept all formats so callers can keep passing the full
+// SHA whichever tool published the chart.
 //
 // appVersion is also legitimately a plain chart version: apptest passes App.Version when
 // App.SHA is empty. The abbreviated comparison therefore only applies when appVersion

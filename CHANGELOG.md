@@ -7,6 +7,14 @@ and this project's packages adheres to [Semantic Versioning](http://semver.org/s
 
 ## [Unreleased]
 
+### Fixed
+
+- `MatchesVersion` (and so `GetLatestChart`, `GetLatestEntry` and `GetLatestVersion`) now matches a
+  commit SHA against the gitsemver v3 development version `<version>-r<crc32>t<YYYYMMDDHHMMSS>h<short SHA>`,
+  for example `4.2.2-r0fb6a962t20261021065246h150308c`, which App Build Suite publishes charts with. Only
+  the gitsemver v2 `-dev.….h<short SHA>` schema was recognised before, so callers passing `CIRCLE_SHA1`
+  got `notFoundError` for every chart versioned with the v3 schema.
+
 ## [1.1.0] - 2026-08-19
 
 ### Added
