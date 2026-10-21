@@ -23,6 +23,8 @@ func Test_MatchesVersion(t *testing.T) {
 		legacyEntry = "2.0.1-2df89eee6b9775863be1dcf6bdb375ef108026cd"
 		devEntry    = "2.0.2-dev.teams-alignment-branch.2026-08-19.13-58-39.ha781825"
 		v3Entry     = "4.2.2-r0fb6a962t20261021065246h150308c"
+
+		plainVersion = "3.8.1"
 	)
 
 	testCases := []struct {
@@ -63,13 +65,13 @@ func Test_MatchesVersion(t *testing.T) {
 		},
 		{
 			name:         "case 5: plain chart version still matches by suffix",
-			entryVersion: "3.8.1",
-			appVersion:   "3.8.1",
+			entryVersion: plainVersion,
+			appVersion:   plainVersion,
 			expected:     true,
 		},
 		{
 			name:         "case 6: plain chart version does not match a different version",
-			entryVersion: "3.8.1",
+			entryVersion: plainVersion,
 			appVersion:   "3.8.2",
 			expected:     false,
 		},
